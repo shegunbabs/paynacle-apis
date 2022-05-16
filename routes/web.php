@@ -13,6 +13,11 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
+Route::get('/', function (\App\Services\SageCloud\SageCloudApiService $apiService) {
+
+    dd(
+        $apiService->fetchBanks()
+    );
+
     return view('welcome');
 });

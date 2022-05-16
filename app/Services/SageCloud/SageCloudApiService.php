@@ -4,7 +4,7 @@
 namespace App\Services\SageCloud;
 
 
-#use App\Jobs\LogToSlack;
+use App\Jobs\LogToSlack;
 use Carbon\Carbon;
 use Illuminate\Http\Client\Response;
 use Illuminate\Support\Facades\Cache;
@@ -20,12 +20,12 @@ class SageCloudApiService
     private const FETCH_DATA_BUNDLES = '/v2/internet/data/lookup';
     private const PURCHASE_DATA = '/v2/internet/data';
 
-    private const SPECTRANET_PIN_LOOKUP = '/v2/internet/data/spectranet/lookup';
-    private const SPECTRANET_PIN_PURCHASE = '/v2/internet/data/spectranet';
-
-    private const SMILE_BUNDLE_LOOKUP = '/v2/internet/data/smile/lookup';
-    private const SMILE_CUSTOMER_VALIDATION = '/v2/internet/data/smile/validate';
-    private const SMILE_BUNDLE_PURCHASE = '/v2/internet/data/smile';
+//    private const SPECTRANET_PIN_LOOKUP = '/v2/internet/data/spectranet/lookup';
+//    private const SPECTRANET_PIN_PURCHASE = '/v2/internet/data/spectranet';
+//
+//    private const SMILE_BUNDLE_LOOKUP = '/v2/internet/data/smile/lookup';
+//    private const SMILE_CUSTOMER_VALIDATION = '/v2/internet/data/smile/validate';
+//    private const SMILE_BUNDLE_PURCHASE = '/v2/internet/data/smile';
 
     private const FETCH_CABLETV_PROVIDERS = '/v2/cable-tv/fetch-providers';
     private const VALIDATE_CABLETV_SMARTCARD = '/v2/cable-tv/validate-customer';
@@ -167,14 +167,6 @@ class SageCloudApiService
         $url = sprintf('%s/v2/cable-tv/fetch-billers?type=%s', self::BASE_URL, $type);
         $res = Http::withToken($this->access_token)->get($url);
         return $this->response($res);
-    }
-
-    public function handleSavingofServicePurchase($servicePurchase, $response, $naration=''): void
-    {
-        $servicePurchase->success = $response['success'];
-        $servicePurchase->status = $response['status'];
-        $servicePurchase->message = $response['message'] ?? $narration;
-        $servicePurchase->save();
     }
 
 

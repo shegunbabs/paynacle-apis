@@ -15,18 +15,18 @@
     {{ $php }} artisan event:clear
     {{ $php }} artisan down
 
+    git stash
     git pull
-
-    @if ( $composer_update )
-        sudo composer install -n
-    @endif
 
     @if ( $migrate )
         {{ $php }} artisan migrate --force
     @endif
 
-    {{ $php }} artisan up
+    @if ( $composer_update )
+        sudo composer install -n
+    @endif
 
+    {{ $php }} artisan up
 @endtask
 
 #-----------------------------------------------------------------------------------------------------------------------

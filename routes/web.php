@@ -2,6 +2,7 @@
 
 use App\Jobs\LogToSlack;
 use App\Models\User;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -16,8 +17,13 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    LogToSlack::dispatch('something-here', ['lever-0' => ['level-1' => 'level 1 contents']]);
+Route::get('/', function (Request $request) {
+    LogToSlack::dispatch('something-here', [
+        'request' => [
+            'ip' => $request->ip(),
+            'user-agent' => $request->userAgent(),
+        ]
+    ]);
     return view('welcome');
 });
 

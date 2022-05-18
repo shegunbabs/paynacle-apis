@@ -1,5 +1,6 @@
 <?php
 
+use App\Jobs\LogToSlack;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -14,6 +15,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
+    LogToSlack::dispatch('something-here', ['lever-0' => ['level-1' => 'level 1 contents']]);
     return view('welcome');
 });
 

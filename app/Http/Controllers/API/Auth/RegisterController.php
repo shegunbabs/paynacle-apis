@@ -33,6 +33,8 @@ class RegisterController
 
         event(new Registered($user));
 
+        $user->wallet()->create([]);
+
         return response()->json([
             'status' => ApiResponseEnum::success(),
             'message' => 'Account created successfully',
